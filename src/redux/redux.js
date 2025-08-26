@@ -1,5 +1,6 @@
 // Action
 
+import { combineReducers, legacy_createStore } from "redux";
 import data from "../assets/data";
 
 // 장바구니에 아이템 추가 (OrderModal.jsx 참고)
@@ -41,5 +42,8 @@ const menuReducer = (state = data.menu, action) => {
   return state;
 };
 
-// dispatch
 // store
+const rootReducer = combineReducers((cartReducer, menuReducer));
+export const store = legacy_createStore(rootReducer);
+
+// dispatch
