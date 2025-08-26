@@ -4,7 +4,7 @@ import { combineReducers, legacy_createStore } from "redux";
 import data from "../assets/data";
 
 // 장바구니에 아이템 추가 (OrderModal.jsx 참고)
-const addToCart = (options, quantity, id) => {
+export const addToCart = (options, quantity, id) => {
   return {
     type: "addToCart",
     payload: { options, quantity, id },
@@ -14,7 +14,7 @@ const addToCart = (options, quantity, id) => {
 // - 추후 price, name 같은 속성을 추가해도 구조 유지 가능
 
 // 장바구니 아이템 삭제 (Cart.jsx 참고)
-const removeFromCart = (id) => {
+export const removeFromCart = (id) => {
   return {
     type: "removeFromCart",
     payload: { id },
@@ -24,8 +24,8 @@ const removeFromCart = (id) => {
 
 // Reducer
 // cartReducer: cart 상태 관리
+// 초기값 빈 배열
 const cartReducer = (state = [], action) => {
-  // 초기값 빈 배열
   switch (action.type) {
     case "addToCart": // 기존 state에 새로운 아이템 추가
       return [...state, action.payload];
@@ -37,13 +37,11 @@ const cartReducer = (state = [], action) => {
 };
 
 // menuReducer: menu 상태 관리
+// 초기값 data.menu
 const menuReducer = (state = data.menu, action) => {
-  // 초기값 data.menu
   return state;
 };
 
 // store
-const rootReducer = combineReducers((cartReducer, menuReducer));
+const rootReducer = combineReducers({ cartReducer, menuReducer });
 export const store = legacy_createStore(rootReducer);
-
-// dispatch
